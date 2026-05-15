@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Builder | Transform Body & Mind</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-dumbbell text-gradient"></i>
+                    <span>BMI</span> Builder
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
+                    <li><a href="#recommendations">Diet Plan</a></li>
+                    <li><a href="#personality">Mind & Growth</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero container">
+        <div class="hero-content">
+            <h1>Transform Your <span class="text-gradient">Body</span> & <span class="text-gradient-alt">Mind</span></h1>
+            <p>Elevate your lifestyle with personalized health metrics, tailored diet plans, and holistic personality development. Your ultimate fitness companion.</p>
+            <a href="#calculator" class="btn btn-primary">Start Your Journey <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image">
+            <div class="hero-glow"></div>
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Fitness Training" style="border-radius: 30px; z-index: 1; max-width: 100%; height: auto; box-shadow: var(--glass-shadow); border: var(--glass-border);">
+            <div class="hero-stats">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-heart-pulse text-gradient" style="font-size: 2rem;"></i>
+                    <div>
+                        <h4 style="font-size: 1.2rem;">Holistic Health</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Body + Mind Sync</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">Analyze Your <span class="text-gradient">Metrics</span></h2>
+            
+            <div class="calc-container">
+                <div class="calc-form">
+                    <h3>BMI Calculator</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Enter your details to get personalized health insights.</p>
+                    
+                    <div class="gender-select">
+                        <div class="gender-btn active" data-gender="male">
+                            <i class="fa-solid fa-mars"></i> Male
+                        </div>
+                        <div class="gender-btn" data-gender="female">
+                            <i class="fa-solid fa-venus"></i> Female
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Age</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="age" placeholder="e.g. 25" min="1" max="120">
+                            <span class="input-suffix">Yrs</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Weight</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="weight" placeholder="e.g. 70">
+                            <span class="input-suffix">kg</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Height</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="height" placeholder="e.g. 175">
+                            <span class="input-suffix">cm</span>
+                        </div>
+                    </div>
+
+                    <button id="calculate-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Calculate BMI</button>
+                </div>
+
+                <div class="calc-result">
+                    <div class="result-ring" id="result-ring">
+                        <div class="bmi-value" id="bmi-value">--</div>
+                        <div class="bmi-label">Your BMI</div>
+                    </div>
+                    <div class="bmi-category" id="bmi-category" style="color: var(--text-secondary);">Awaiting Input...</div>
+                    <p id="bmi-desc" style="color: var(--text-secondary); margin-top: 1rem; max-width: 80%;">Enter your metrics to reveal your health status and unlock personalized plans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="recommendations" class="recommendations-section container" style="display: none;">
+        <h2 class="section-title">Your Custom <span class="text-gradient">Action Plan</span></h2>
+        
+        <div class="rec-grid">
+            <div class="rec-card diet">
+                <div class="rec-icon"><i class="fa-solid fa-utensils"></i></div>
+                <h3>Nutrition Focus</h3>
+                <ul id="diet-list" style="margin-bottom: 1.5rem;">
+                    <!-- Populated by JS -->
+                </ul>
+                <a href="meals.html" id="meal-plan-link" class="btn btn-primary" style="padding: 0.8rem 1.5rem; font-size: 0.9rem; width: 100%; text-align: center;">View Meal Suggestions</a>
+            </div>
+            
+            <div class="rec-card exercise">
+                <div class="rec-icon" style="color: var(--accent-secondary);"><i class="fa-solid fa-person-running"></i></div>
+                <h3>Training Regimen</h3>
+                <ul id="workout-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+
+            <div class="rec-card mind">
+                <div class="rec-icon" style="color: #FFD166;"><i class="fa-solid fa-brain"></i></div>
+                <h3>Mindset & Habits</h3>
+                <ul id="mind-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="personality" class="personality-section">
+        <div class="container">
+            <h2 class="section-title">Personality <span class="text-gradient-alt">Development</span></h2>
+            
+            <div class="feature-tabs">
+                <button class="tab-btn active" data-target="confidence">Confidence Building</button>
+                <button class="tab-btn" data-target="communication">Communication</button>
+                <button class="tab-btn" data-target="discipline">Discipline</button>
+            </div>
+
+            <div class="tab-content active" id="confidence">
+                <div class="dev-grid">
+                    <div class="dev-text">
+                        <h3><span class="text-gradient-alt">Inner Strength</span> & Outer Poise</h3>
+                        <p>True fitness extends beyond physical metrics. It's about how you carry yourself and the energy you project into the world.</p>
+                        
+                        <div class="dev-features">
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-child-reaching"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Power Posture</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Stand tall with shoulders back. Good posture instantly signals confidence and boosts testosterone while lowering cortisol.</p>
+                                </div>
+                            </div>
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-eye"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Eye Contact Mastery</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Maintain steady, relaxed eye contact to build trust and demonstrate unwavering self-assurance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Confidence" style="border-radius: 20px; width: 100%; box-shadow: var(--glass-shadow);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="communication">
+                <div class="dev-grid">
+                    <div class="dev-text">
+                        <h3><span class="text-gradient-alt">Articulate</span> Your Vision</h3>
+                        <p>Your ability to connect with others and express your ideas clearly is a critical muscle that needs regular training.</p>
+                        
+                        <div class="dev-features">
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Active Listening</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Listen to understand, not just to reply. This builds deeper connections and demonstrates emotional intelligence.</p>
+                                </div>
+                            </div>
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-microphone"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Vocal Tonality</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Speak from the diaphragm. A deep, resonant voice commands attention and projects authority and calm.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Communication" style="border-radius: 20px; width: 100%; box-shadow: var(--glass-shadow);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="discipline">
+                <div class="dev-grid">
+                    <div class="dev-text">
+                        <h3><span class="text-gradient-alt">Forge</span> Iron Discipline</h3>
+                        <p>Motivation is fleeting, but discipline is the architecture of success. Build unshakeable habits.</p>
+                        
+                        <div class="dev-features">
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-clock"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Time Mastery</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Structure your day proactively. Win the morning to win the day. Consistency compounds over time.</p>
+                                </div>
+                            </div>
+                            <div class="dev-feature-item">
+                                <div class="dev-feature-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Embrace Friction</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Voluntarily do hard things. Cold showers, intense workouts, and deep work build mental calluses.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Discipline" style="border-radius: 20px; width: 100%; box-shadow: var(--glass-shadow);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fa-solid fa-dumbbell text-gradient"></i> BMI Builder
+            </div>
+            <p>&copy; 2026 BMI Builder. Elevate Your Existence.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Builder | Detailed Meal Plan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .meal-plan-section {
+            padding: 100px 0 6rem 0;
+            min-height: 100vh;
+        }
+        
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .meal-card {
+            background: var(--bg-card);
+            border: var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .meal-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meal-card ul {
+            list-style: none;
+        }
+
+        .meal-card ul li {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+
+        .meal-card ul li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .meal-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        #error-msg {
+            text-align: center;
+            padding: 5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-dumbbell text-gradient"></i>
+                        <span>BMI</span> Builder
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#calculator">Calculator</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="meal-plan-section container">
+        <div id="meal-content" style="display: none;">
+            <h2 class="section-title">Your <span class="text-gradient">Meal Plan</span></h2>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem;" id="meal-subtitle">Loading...</p>
+            
+            <div class="meal-grid" id="meal-grid">
+                <!-- Meals injected via JS -->
+            </div>
+        </div>
+
+        <div id="error-msg" style="display: none;">
+            <i class="fa-solid fa-circle-exclamation text-gradient-alt" style="font-size: 4rem; margin-bottom: 1.5rem;"></i>
+            <h2>No BMI Data Found</h2>
+            <p style="color: var(--text-secondary); margin: 1rem 0 2rem 0;">Please calculate your BMI first to view your personalized meal plan.</p>
+            <a href="index.html#calculator" class="btn btn-primary">Go to Calculator</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fa-solid fa-dumbbell text-gradient"></i> BMI Builder
+            </div>
+            <p>&copy; 2026 BMI Builder. Elevate Your Existence.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const category = localStorage.getItem('bmiCategory');
+            
+            if (!category) {
+                document.getElementById('error-msg').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('meal-content').style.display = 'block';
+            const subtitleEl = document.getElementById('meal-subtitle');
+            const gridEl = document.getElementById('meal-grid');
+
+            const mealData = {
+                underweight: {
+                    title: 'Low BMI Protocol: Caloric Surplus & Mass',
+                    meals: [
+                        {
+                            name: 'Breakfast (8:00 AM)',
+                            icon: 'fa-sun',
+                            color: '#FFD166',
+                            items: [
+                                '4 whole eggs scrambled with cheese and spinach',
+                                '2 slices of whole grain toast with peanut butter',
+                                '1 large banana',
+                                'Whole milk or high-calorie oat milk (1 glass)'
+                            ]
+                        },
+                        {
+                            name: 'Lunch (1:00 PM)',
+                            icon: 'fa-utensils',
+                            color: '#FFD166',
+                            items: [
+                                '150g chicken breast or salmon',
+                                '1.5 cups of white or brown rice',
+                                'Avocado salad with olive oil dressing',
+                                'Handful of mixed nuts (almonds, walnuts)'
+                            ]
+                        },
+                        {
+                            name: 'Dinner (7:00 PM)',
+                            icon: 'fa-moon',
+                            color: '#FFD166',
+                            items: [
+                                '200g lean beef steak or tofu stir-fry',
+                                '1 large sweet potato with butter',
+                                'Roasted broccoli or asparagus',
+                                'Mass gainer shake before bed'
+                            ]
+                        }
+                    ]
+                },
+                normal: {
+                    title: 'Healthy BMI Protocol: Maintenance & Performance',
+                    meals: [
+                        {
+                            name: 'Breakfast (8:00 AM)',
+                            icon: 'fa-sun',
+                            color: '#06D6A0',
+                            items: [
+                                'Oatmeal with protein powder, berries, and chia seeds',
+                                '2 boiled eggs',
+                                'Black coffee or green tea'
+                            ]
+                        },
+                        {
+                            name: 'Lunch (1:00 PM)',
+                            icon: 'fa-utensils',
+                            color: '#06D6A0',
+                            items: [
+                                'Grilled chicken wrap with whole wheat tortilla',
+                                'Mixed greens with balsamic vinaigrette',
+                                '1 apple or pear',
+                                'Sparkling water'
+                            ]
+                        },
+                        {
+                            name: 'Dinner (7:00 PM)',
+                            icon: 'fa-moon',
+                            color: '#06D6A0',
+                            items: [
+                                '150g baked salmon or turkey breast',
+                                '1 cup quinoa',
+                                'Steamed vegetables (carrots, green beans)',
+                                'Greek yogurt with honey for dessert'
+                            ]
+                        }
+                    ]
+                },
+                overweight: {
+                    title: 'Excellent BMI Protocol: Athletic Peak & Recomposition',
+                    meals: [
+                        {
+                            name: 'Breakfast (8:00 AM)',
+                            icon: 'fa-sun',
+                            color: '#00FF87',
+                            items: [
+                                'Protein pancakes (egg whites, oats, whey protein)',
+                                '1 cup of mixed berries',
+                                'Pre-workout coffee or amino acids'
+                            ]
+                        },
+                        {
+                            name: 'Lunch (1:00 PM)',
+                            icon: 'fa-utensils',
+                            color: '#00FF87',
+                            items: [
+                                'Large turkey or tuna salad with mixed greens',
+                                'Olive oil and lemon dressing',
+                                '1 cup roasted sweet potatoes',
+                                'Post-workout protein shake'
+                            ]
+                        },
+                        {
+                            name: 'Dinner (7:00 PM)',
+                            icon: 'fa-moon',
+                            color: '#00FF87',
+                            items: [
+                                '200g lean chicken breast or white fish',
+                                'Cauliflower rice or 1/2 cup brown rice',
+                                'Large portion of grilled asparagus',
+                                'Casein protein or cottage cheese before bed'
+                            ]
+                        }
+                    ]
+                },
+                obese: {
+                    title: 'Fat Loss Protocol: High Volume & Satiety',
+                    meals: [
+                        {
+                            name: 'Breakfast (8:00 AM)',
+                            icon: 'fa-sun',
+                            color: '#FF4B4B',
+                            items: [
+                                'Egg white omelet (4 egg whites, 1 whole egg) with peppers',
+                                '1 slice of Ezekiel bread',
+                                'Black coffee or plain tea'
+                            ]
+                        },
+                        {
+                            name: 'Lunch (1:00 PM)',
+                            icon: 'fa-utensils',
+                            color: '#FF4B4B',
+                            items: [
+                                'Huge volume salad (spinach, cucumber, tomatoes)',
+                                '120g grilled chicken breast',
+                                'Zero-calorie dressing',
+                                'Diet soda or sparkling water'
+                            ]
+                        },
+                        {
+                            name: 'Dinner (7:00 PM)',
+                            icon: 'fa-moon',
+                            color: '#FF4B4B',
+                            items: [
+                                '150g white fish (cod, tilapia) or tofu',
+                                '2 cups of steamed zucchini or broccoli',
+                                'Sugar-free jello for dessert'
+                            ]
+                        }
+                    ]
+                }
+            };
+
+            const data = mealData[category];
+            
+            if(data) {
+                subtitleEl.textContent = data.title;
+                
+                data.meals.forEach(meal => {
+                    const card = document.createElement('div');
+                    card.className = 'meal-card';
+                    
+                    let itemsHtml = meal.items.map(item => `<li>${item}</li>`).join('');
+                    
+                    card.innerHTML = `
+                        <h3 style="color: ${meal.color}"><i class="fa-solid ${meal.icon}"></i> ${meal.name}</h3>
+                        <ul>${itemsHtml}</ul>
+                    `;
+                    gridEl.appendChild(card);
+                });
+            } else {
+                subtitleEl.textContent = 'Meal plan not found for this category.';
+            }
+        });
+    </script>
+</body>
+</html>
